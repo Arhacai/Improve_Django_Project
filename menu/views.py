@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -34,7 +35,11 @@ def create_new_menu(request):
             menu = form.save(commit=False)
             menu.save()
             form.save_m2m()
+            messages.success(request, 'Menu created successfully.')
             return redirect('menu:menu_detail', pk=menu.pk)
+        else:
+            messages.error(request, 'Invalid menu. Please correct it and try again.')
+            return render(request, 'menu/menu_new.html', {'form': form})
     form = MenuForm()
     return render(request, 'menu/menu_new.html', {'form': form})
 
@@ -47,6 +52,10 @@ def edit_menu(request, pk):
             menu = form.save(commit=False)
             menu.save()
             form.save_m2m()
+            messages.success(request, 'Menu edited successfully')
             return redirect('menu:menu_detail', pk=menu.pk)
+        else:
+            messages.error(request, 'Invalid changes. Please correct them and try again.')
+            return render(request, 'menu/change_menu.html', {'form': form})
     form = MenuForm(instance=menu)
     return render(request, 'menu/change_menu.html', {'form': form})
