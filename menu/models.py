@@ -18,7 +18,8 @@ class Item(models.Model):
     chef = models.ForeignKey('auth.User')
     created_day = models.DateField(default=timezone.now)
     standard = models.BooleanField(default=False)
-    ingredients = models.ManyToManyField('Ingredient', related_name='ingredients')
+    ingredients = models.ManyToManyField(
+        'Ingredient', related_name='ingredients')
 
     def __str__(self):
         return self.name

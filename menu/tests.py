@@ -1,14 +1,11 @@
-from django.core.exceptions import ValidationError
-from django.template.context_processors import request
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.test import TestCase
 from django.utils import timezone
 
-from .models import Menu, Item, Ingredient
 from .forms import MenuForm
-from django.test.client import RequestFactory
+from .models import Menu, Item, Ingredient
 
 
 ################
@@ -40,18 +37,21 @@ class MenuViewsTest(TestCase):
         self.assertTemplateUsed(resp, 'menu/list_all_current_menus.html')
 
     def test_menu_detail_view(self):
-        resp = self.client.get(reverse('menu:menu_detail', kwargs={'pk': self.menu.pk}))
+        resp = self.client.get(reverse('menu:menu_detail',
+                                       kwargs={'pk': self.menu.pk}))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(self.menu, resp.context['menu'])
         self.assertTemplateUsed(resp, 'menu/menu_detail.html')
 
     def test_item_detail_view(self):
-        resp = self.client.get(reverse('menu:item_detail', kwargs={'pk': self.item.pk}))
+        resp = self.client.get(reverse('menu:item_detail',
+                                       kwargs={'pk': self.item.pk}))
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed('menu/detail_item.html')
 
     def test_item_detail_view_404(self):
-        resp = self.client.get(reverse('menu:item_detail', kwargs={'pk': 0}))
+        resp = self.client.get(reverse('menu:item_detail',
+                                       kwargs={'pk': 0}))
         self.assertEqual(resp.status_code, 404)
         self.assertTemplateUsed('menu/detail_item.html')
 
@@ -64,11 +64,13 @@ class MenuViewsTest(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_edit_menu_view_GET(self):
-        resp = self.client.get(reverse('menu:menu_edit', kwargs={'pk': self.menu.pk}))
+        resp = self.client.get(reverse('menu:menu_edit',
+                                       kwargs={'pk': self.menu.pk}))
         self.assertEqual(resp.status_code, 200)
 
     def test_edit_menu_view_POST(self):
-        resp = self.client.post(reverse('menu:menu_edit', kwargs={'pk': self.menu.pk}))
+        resp = self.client.post(reverse('menu:menu_edit',
+                                        kwargs={'pk': self.menu.pk}))
         self.assertEqual(resp.status_code, 200)
 
     def tearDown(self):

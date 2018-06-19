@@ -110,6 +110,3 @@ STATICFILES_DIRS = (
 
 # Django Debug Toolbar Settings
 INTERNAL_IPS = '127.0.0.1'
-
-
-

@@ -19,17 +19,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Ingredient',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(
+                    verbose_name='ID',
+                    primary_key=True,
+                    auto_created=True,
+                    serialize=False)),
                 ('name', models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
             name='Item',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(
+                    verbose_name='ID',
+                    primary_key=True,
+                    auto_created=True,
+                    serialize=False)),
                 ('name', models.CharField(max_length=200)),
                 ('description', models.TextField()),
-                ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
+                ('created_date', models.DateTimeField(
+                    default=django.utils.timezone.now)),
                 ('standard', models.BooleanField(default=False)),
                 ('chef', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('ingredients', models.ManyToManyField(to='menu.Ingredient')),
@@ -55,7 +64,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='menu',
             name='season',
-            field=models.CharField(max_length=20, default=datetime.datetime(2016, 4, 6, 22, 54, 24, 258418, tzinfo=utc)),
+            field=models.CharField(
+                max_length=20,
+                default=datetime.datetime(2016, 4, 6, 22, 54, 24, 258418,
+                                          tzinfo=utc)),
             preserve_default=False,
         ),
         migrations.AddField(

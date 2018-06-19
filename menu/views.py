@@ -1,15 +1,17 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 
-from .forms import *
-from .models import *
+from .forms import MenuForm
+from .models import Menu, Item
 
 
 def menu_list(request):
     menus = Menu.objects.all().prefetch_related('items').exclude(
         expiration_day__lt=timezone.now()).order_by('expiration_day')
-    return render(request, 'menu/list_all_current_menus.html', {'menus': menus})
+    return render(request, 'menu/list_all_current_menus.html',
+                  {'menus': menus})
 
 
 def menu_detail(request, pk):

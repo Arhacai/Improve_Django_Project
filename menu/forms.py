@@ -5,7 +5,9 @@ from .models import Menu, Item
 
 class MenuForm(forms.ModelForm):
     items = forms.ModelMultipleChoiceField(queryset=Item.objects.all())
-    expiration_day = forms.DateField(widget=forms.SelectDateWidget(years=range(2018, 2023)))
+    expiration_day = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=range(2018, 2023)))
 
     class Meta:
         model = Menu
